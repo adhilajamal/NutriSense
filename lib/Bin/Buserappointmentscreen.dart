@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vitamindeficiencydetection/EXPERT/signupexpert.dart';
-import 'package:vitamindeficiencydetection/api/doctorsrepository.dart';
-import 'package:vitamindeficiencydetection/doctor.dart';
-import 'package:vitamindeficiencydetection/models/doctor_list_model.dart';
-
 
 class UserAppointmentScreen extends StatefulWidget {
   const UserAppointmentScreen({Key? key});
@@ -15,24 +10,7 @@ class UserAppointmentScreen extends StatefulWidget {
 class _UserAppointmentScreenState extends State<UserAppointmentScreen> {
   bool _isSearchClicked = false;
   String _selectedLocation = '';
-  List<Doctors> _doctors = [];
 
-  void _addDoctor(Doctors doctor) {
-    setState(() {
-      _doctors.add(doctor);
-    });
-  }
-  DoctorRepository doctorRepository=DoctorRepository();
- @override
-  void initState() async{
-    // TODO: implement initState
-    super.initState();
-    // var doctormodel= await doctorRepository.getdoctorslist();
-    // setState(() {
-    //   _doctors=doctormodel?.doctors??[];
-    // });
-    
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,50 +94,69 @@ class _UserAppointmentScreenState extends State<UserAppointmentScreen> {
               ),
             ),
           ),
-         SizedBox(height: 20,width: 20,),
-         Expanded(
-            child: ListView.builder(
-              itemCount: _doctors.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(_doctors[index].userName??''),
-                  subtitle: Text(_doctors[index].qualification??''),
-                );
-              },
+          SizedBox(height: 20,width: 20,),
+          Expanded(
+            child: ListView(
+              children: [
+                _buildDoctorRow(),
+                _buildDoctorRow(),
+                _buildDoctorRow(),
+                _buildDoctorRow(),
+                _buildDoctorRow(),
+                _buildDoctorRow(),
+                // Add more _buildDoctorRow() if needed
+              ],
             ),
           ),
-           SizedBox(height: 20,),
-            Padding(
-              padding: const EdgeInsets.only(left: 100),
-              child: ElevatedButton(onPressed: () {
-                Navigator.pushNamed(context, 'doctordetails');
-              }, 
-               
-               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 142, 166, 82),),
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30)
-                )),
-                fixedSize: MaterialStateProperty.all<Size>(Size(220,40))
-               ),
-              child: Row(children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 50),
-                  child: Text('Dr.Name',style: TextStyle(fontSize: 16),),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 35),
-                  child: Icon(Icons.arrow_forward_ios),
-                )
-              ],)),
-            )
-          
+          SizedBox(height: 20,width: 20,),
+          // Add more rows of doctors here if needed
         ],
       ),
     );
   }
-}
 
+  Widget _buildDoctorRow() {
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            children: [
+              DoctorCard(
+                // image: 'expert.jpg',
+                name: 'Dr. Alice Joseph',
+                qualification: 'MBBS MD',
+              ),
+              SizedBox(height: 10),
+              DoctorCard(
+                // image: 'expert.jpg',
+                name: 'Dr. John Doe',
+                qualification: 'MBBS MD',
+              ),
+            ],
+          ),
+        ),
+        SizedBox(width: 10),
+        Expanded(
+          child: Column(
+            children: [
+              DoctorCard(
+                // image: 'expert.jpg',
+                name: 'Dr. John Doe',
+                qualification: 'MBBS MD',
+              ),
+              SizedBox(height: 10),
+              DoctorCard(
+                // image: 'expert.jpg',
+                name: 'Dr. John Doe',
+                qualification: 'MBBS MD',
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
 
   @override
   class DoctorCard extends StatelessWidget {
@@ -207,9 +204,4 @@ class _UserAppointmentScreenState extends State<UserAppointmentScreen> {
       ),
     );
   }
-}
-
-doctorlist()async{
-  var doctor =await DoctorRepository().getdoctorslist();
-  return doctor?.doctors??[];
 }
