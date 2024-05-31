@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:vitamindeficiencydetection/User/UserAppointmet/controller/appointmentcontroller.dart';
 
-class DoctorDetails extends StatefulWidget {
-  const DoctorDetails({super.key});
 
-  @override
-  State<DoctorDetails> createState() => _DoctorDetailsState();
-}
+class DoctorDetails extends StatelessWidget {
+   DoctorDetails({super.key});
 
-class _DoctorDetailsState extends State<DoctorDetails> {
+  AppointmentController controller = Get.put(AppointmentController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +16,9 @@ class _DoctorDetailsState extends State<DoctorDetails> {
         backgroundColor: Color.fromARGB(255, 142, 166, 82),
       ),
       body: SingleChildScrollView(
-        child: Column(
+        child: Obx(() {
+          var doctordata = controller.doctordetails.value;
+          return Column(
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 30,left: 5,right: 5),
@@ -39,7 +41,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     children: [
                        Padding(
                         padding: const EdgeInsets.only(top: 30,left: 15),
-                        child: Text('Dr.Alice Joseph',style: TextStyle(
+                        child: Text(doctordata?.userName?.toString()??'',style: TextStyle(
                         color: Colors.white,
                         fontSize: 17,
                       ),
@@ -47,7 +49,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                    ),
                    Padding(
                      padding: const EdgeInsets.only(left: 5,right: 40,top: 5),
-                     child: Text('MBBS MD',style: TextStyle(
+                     child: Text(doctordata?.qualification?.toString()??'',style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
                         ),
@@ -82,7 +84,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
             Padding(
               padding: const EdgeInsets.only(left: 10,right: 10),
               child: Text(
-                ' "As a nutritionist, I believe in taking a holistic approach to patient care, recognizing that food is not only fuel for the body but also plays a crucial role in overall health and vitality. My philosophy is centered on empowering individuals to cultivate a positive relationship with food, embracing a balanced and varied diet that nourishes both the body and the mind."',
+                doctordata?.about?.toString()??'',
                 style: TextStyle(
                   fontStyle: FontStyle.italic,
                 ),
@@ -113,7 +115,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                   children: [
                     Icon(Icons.phone,color: Colors.blue,size: 25,),
                     SizedBox(width: 5,),
-                    Text('9037596328')
+                    Text(doctordata?.contact?.toString()??'')
                   ],
                 ),
               ),
@@ -127,7 +129,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                   children: [
                     Icon(Icons.location_on,color: Colors.blue,size: 25,),
                     SizedBox(width: 5,),
-                    Text('Pullupalam Road, Opp Jain Temple, Mattancherry,\n Kochi, Kerala 682002')
+                    Text(doctordata?.address?.toString()??'')
                   ],
                 ),
               ),
@@ -141,7 +143,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                   children: [
                     Icon(Icons.access_time,color: Colors.blue,size: 25,),
                     SizedBox(width: 5,),
-                    Text('9 AM-6:00 PM')
+                    Text(doctordata?.workingtime?.toString()??'')
                   ],
                 ),
               ),
@@ -172,7 +174,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
               ),
             ),
           ],
-        ),
+        );
+        })
       ),
     );
   }

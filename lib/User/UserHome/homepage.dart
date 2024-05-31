@@ -5,10 +5,11 @@ import 'package:vitamindeficiencydetection/User/UserProfile/userprofilescreen.da
 import 'package:vitamindeficiencydetection/User/UserReminder/reminderscreen.dart';
 import 'package:vitamindeficiencydetection/User/UserFoodSuggestion/foodsuggestionscreen.dart';
 import 'package:vitamindeficiencydetection/User/UserAppointmet/userappointmentscreen.dart';
+import 'package:vitamindeficiencydetection/models/patient_profile_model.dart';
 
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({super.key,re});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -16,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
+  late String email;
   final List<Widget> _children = [
     HomeScreen(),
     ReminderScreen(),

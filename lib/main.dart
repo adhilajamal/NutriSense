@@ -1,5 +1,6 @@
 // import 'dart:js';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:vitamindeficiencydetection/EXPERT/ExpertProfile/expertprofilescreen.dart';
 import 'package:vitamindeficiencydetection/User/UserAppointmet/doctordetails.dart';
 import 'package:vitamindeficiencydetection/User/UserAppointmet/userviewappointment.dart';
@@ -31,12 +32,14 @@ import 'package:vitamindeficiencydetection/EXPERT/ExpertProfile/expertprofilescr
 import 'package:vitamindeficiencydetection/EXPERT/ExpertProfile/expertchangepassword.dart';
 import 'package:vitamindeficiencydetection/EXPERT/ExpertProfile/expertsettings.dart';
 import 'package:vitamindeficiencydetection/User/UserAppointmet/userviewappointment.dart';
+import 'package:vitamindeficiencydetection/User/UserProfile/userprofilescreenNav/userabout.dart';
 
 
 
 
 void main() {
-  runApp(MaterialApp(
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     home: MyLogin(),
     routes: {
@@ -65,6 +68,7 @@ void main() {
       'expertchangepassword'    :(context) => ExpertChangePassword(),
       'expertsettings'          :(context) => ExpertSettings(),
       'userviewappointment'     :(context) => UserViewAppointment(),
+      'userabout'               :(context) => UserProfile(),
        
       
 

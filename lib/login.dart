@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'api/login.dart';
 
 class MyLogin extends StatefulWidget {
@@ -24,6 +25,10 @@ class _MyLoginState extends State<MyLogin> {
     );
       }
       if(data['statusCode']==200){
+         final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+         final SharedPreferences prefs = await _prefs;
+         prefs.setString('email', data['email']);
+
         if(data['body'].toString()=='Patient'){
           Navigator.pushNamed(context, 'homepage');
         }

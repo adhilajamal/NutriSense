@@ -12,7 +12,7 @@ class LoginUser {
     final response = await http.post(Uri.parse('http://127.0.0.1:8000/loginUser'), body: body, headers: {'Content-Type' : 'application/json'});
     final data =json.decode(response.body);
     
-    return {'statusCode' : response.statusCode,'body' : data['role']};
+    return {'statusCode' : response.statusCode,'body' : data['role'],'email' : data['email']};
     // if (response.statusCode == 200) {
     //   // If the server returns a 200 OK response, parse the JSON
     //   return json.decode(response.body);

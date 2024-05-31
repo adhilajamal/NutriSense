@@ -1,38 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/state_manager.dart';
 import 'package:vitamindeficiencydetection/EXPERT/signupexpert.dart';
+import 'package:vitamindeficiencydetection/User/UserAppointmet/controller/appointmentcontroller.dart';
 import 'package:vitamindeficiencydetection/api/doctorsrepository.dart';
 import 'package:vitamindeficiencydetection/doctor.dart';
 import 'package:vitamindeficiencydetection/models/doctor_list_model.dart';
 
 
-class UserAppointmentScreen extends StatefulWidget {
-  const UserAppointmentScreen({Key? key});
+class UserAppointmentScreen extends GetView<AppointmentController> {
+   UserAppointmentScreen({Key? key});
 
-  @override
-  State<UserAppointmentScreen> createState() => _UserAppointmentScreenState();
-}
-
-class _UserAppointmentScreenState extends State<UserAppointmentScreen> {
-  bool _isSearchClicked = false;
-  String _selectedLocation = '';
-  List<Doctors> _doctors = [];
-
-  void _addDoctor(Doctors doctor) {
-    setState(() {
-      _doctors.add(doctor);
-    });
-  }
+  
+  // bool _isSearchClicked = false;
+  // String _selectedLocation = '';
+ 
+AppointmentController controller = Get.put(AppointmentController());
+  
   DoctorRepository doctorRepository=DoctorRepository();
- @override
-  void initState() async{
-    // TODO: implement initState
-    super.initState();
-    // var doctormodel= await doctorRepository.getdoctorslist();
-    // setState(() {
-    //   _doctors=doctormodel?.doctors??[];
-    // });
-    
-  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,19 +83,19 @@ class _UserAppointmentScreenState extends State<UserAppointmentScreen> {
                         ),
                       ];
                     },
-                    onSelected: (String value) {
-                      setState(() {
-                        _selectedLocation = value;
-                        _isSearchClicked = true;
-                      });
-                    },
+                    // onSelected: (String value) {
+                    //   setState(() {
+                    //     _selectedLocation = value;
+                    //     _isSearchClicked = true;
+                    //   });
+                    // },
                     icon: Icon(Icons.location_on, color: Colors.white),
                   ),
                   suffixIcon: IconButton(
                     onPressed: () {
-                      setState(() {
-                        _isSearchClicked = true;
-                      });
+                      // setState(() {
+                      //   _isSearchClicked = true;
+                      // });
                     },
                     icon: Icon(Icons.search, color: Colors.white),
                   ),
@@ -118,15 +105,24 @@ class _UserAppointmentScreenState extends State<UserAppointmentScreen> {
           ),
          SizedBox(height: 20,width: 20,),
          Expanded(
-            child: ListView.builder(
-              itemCount: _doctors.length,
+            child: Obx(() {
+              var data = controller.doctors.value;
+              return ListView.builder(
+              itemCount: data.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(_doctors[index].userName??''),
-                  subtitle: Text(_doctors[index].qualification??''),
+                return GestureDetector(
+                  onTap: (){ 
+                    controller.getDoctorsDetail(data[index].email.toString());
+                    Navigator.pushNamed(context, 'doctordetails');
+                  },
+                  child: ListTile(
+                    title: Text(data[index].userName??''),
+                    subtitle: Text(data[index].qualification??''),
+                  ),
                 );
               },
-            ),
+            );
+            })
           ),
            SizedBox(height: 20,),
             Padding(
