@@ -8,7 +8,7 @@ class SignUp {
       'age': age,
       'gender': gender,
       'contact':contact,
-      'email': email,
+      'email': email,    
       'pwd': password,
       
 

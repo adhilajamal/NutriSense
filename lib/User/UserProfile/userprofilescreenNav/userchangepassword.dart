@@ -1,13 +1,19 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
+import 'package:vitamindeficiencydetection/User/UserProfile/controller/patientProfileController.dart';
 
 class UserChangePassword extends StatefulWidget {
   const UserChangePassword({super.key});
 
-  @override
+  @override   
   State<UserChangePassword> createState() => _UserChangePasswordState();
 }
 
 class _UserChangePasswordState extends State<UserChangePassword> {
+
+  final controller = Get.put(PatientProfileController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,6 +26,7 @@ class _UserChangePasswordState extends State<UserChangePassword> {
           Padding(
             padding: const EdgeInsets.only(top: 20,left: 5,right: 5),
             child: TextField(
+              controller: controller.oldPasswordController,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -36,6 +43,7 @@ class _UserChangePasswordState extends State<UserChangePassword> {
           Padding(
             padding: const EdgeInsets.only(top: 20,left: 5,right: 5),
             child: TextField(
+              controller: controller.newPasswordController,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -52,6 +60,7 @@ class _UserChangePasswordState extends State<UserChangePassword> {
           Padding(
             padding: const EdgeInsets.only(top: 20 ,left: 5,right: 5),
             child: TextField(
+              controller: controller.confirmnewPasswordController,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -68,7 +77,10 @@ class _UserChangePasswordState extends State<UserChangePassword> {
           Padding(
             padding: const EdgeInsets.only(top: 25),
             child: ElevatedButton(
-              onPressed: () {}, 
+              onPressed: () {
+                controller.patientChangePwd();
+                // log(controller.status.toString());
+              }, 
               style: ButtonStyle(
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(

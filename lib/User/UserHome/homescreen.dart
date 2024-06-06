@@ -15,6 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
          appBar:  AppBar(
           title: const Text('NutriSense'),
+          automaticallyImplyLeading : false,
           centerTitle: true,
           backgroundColor: Color.fromARGB(255, 142, 166, 82),
           elevation: 50,
@@ -44,10 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               PopupMenuItem(
                 child: ListTile(
-                  leading: Icon(Icons.chat),
-                  title: Text('Chat with Expert'),
+                  leading: Icon(Icons.event_available),
+                  title: Text('Appointment Update'),
                   onTap: () {
-                    Navigator.pushNamed(context, 'userchatwithdoctor');
+                    Navigator.pushNamed(context, 'userviewappointment');
                     // Navigator.pop(context); // Close the popup menu
                   },
                 ),

@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:vitamindeficiencydetection/EXPERT/ExpertProfile/expertprofilescreen.dart';
-import 'package:vitamindeficiencydetection/User/UserAppointmet/doctordetails.dart';
-import 'package:vitamindeficiencydetection/User/UserAppointmet/userviewappointment.dart';
+import 'package:vitamindeficiencydetection/User/UserAppointment/doctordetails.dart';
+import 'package:vitamindeficiencydetection/User/UserAppointment/userviewappointment.dart';
 // ignore: unused_import
 import 'package:vitamindeficiencydetection/User/UserFoodSuggestion/foodsuggestionscreen.dart';
 import 'package:vitamindeficiencydetection/User/UserHome/homepage.dart';
@@ -16,22 +16,22 @@ import 'package:vitamindeficiencydetection/User/UserHome/imageupload.dart';
 import 'package:vitamindeficiencydetection/User/UserHome/detection.dart';
 import 'package:vitamindeficiencydetection/EXPERT/ExpertHome/experthomepage.dart';
 import 'package:vitamindeficiencydetection/User/UserReminder/addpill.dart';
-import 'package:vitamindeficiencydetection/User/UserAppointmet/userbooknow.dart';
+import 'package:vitamindeficiencydetection/User/UserAppointment/userbooknow.dart';
 
 import 'package:vitamindeficiencydetection/User/UserChat/userchatwithdoctor.dart';
 import 'package:vitamindeficiencydetection/User/UserProfile/userprofilescreenNav/userchangepassword.dart';
 import 'package:vitamindeficiencydetection/User/UserProfile/userprofilescreenNav/usersettings.dart';
 // ignore: duplicate_import
-import 'package:vitamindeficiencydetection/User/UserAppointmet/doctordetails.dart';
+import 'package:vitamindeficiencydetection/User/UserAppointment/doctordetails.dart';
 // ignore: duplicate_import
-import 'package:vitamindeficiencydetection/User/UserAppointmet/userbooknow.dart';
+import 'package:vitamindeficiencydetection/User/UserAppointment/userbooknow.dart';
 // import 'package:vitamindeficiencydetection/User/UserChat/chatscreendoctordetails.dart';
 // // ignore: duplicate_import
 // import 'package:vitamindeficiencydetection/userchatscreen.dart';
 import 'package:vitamindeficiencydetection/EXPERT/ExpertProfile/expertprofilescreen.dart';
 import 'package:vitamindeficiencydetection/EXPERT/ExpertProfile/expertchangepassword.dart';
 import 'package:vitamindeficiencydetection/EXPERT/ExpertProfile/expertsettings.dart';
-import 'package:vitamindeficiencydetection/User/UserAppointmet/userviewappointment.dart';
+import 'package:vitamindeficiencydetection/User/UserAppointment/userviewappointment.dart';
 import 'package:vitamindeficiencydetection/User/UserProfile/userprofilescreenNav/userabout.dart';
 
 
@@ -57,7 +57,7 @@ void main() {
       'usersettings'              :(context) => UserSettings(),
       'userchatwithdoctor'        :(context) => ChatScreen(),
       'doctordetails'             :(context) => DoctorDetails(),
-      'userbooknow'               :(context) => UserBookNow(),
+      // 'userbooknow'               :(context) => UserBookNow(dr_name: ,),
       // 'chatscreendoctordetails'   : (context) => ChatScreenDoctorDetails(),
       //   '/': (context) => HomeScreen(),
       //   'userchatscreen': (context) {

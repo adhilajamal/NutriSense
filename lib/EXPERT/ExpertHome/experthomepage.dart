@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vitamindeficiencydetection/EXPERT/ExpertAppointment/acceptedAppointmentScreen.dart';
+import 'package:vitamindeficiencydetection/EXPERT/ExpertAppointment/expertappointmentscreen.dart';
+// import 'package:vitamindeficiencydetection/EXPERT/ExpertAppointment/expertappointmentscreen.dart';
 import 'package:vitamindeficiencydetection/EXPERT/ExpertChat/expertchatscreen.dart';
 import 'package:vitamindeficiencydetection/EXPERT/ExpertProfile/expertprofilescreen.dart';
 import 'package:vitamindeficiencydetection/EXPERT/ExpertHome/experthomescreen.dart';
@@ -14,9 +17,10 @@ class _ExpertHomePageState extends State<ExpertHomePage> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     ExpertHomeScreen(),
-    ChatScreen(),
+    // ChatScreen(),
     ViewAppointmentScreen(),
-    ExpertProfileScreen()
+    AcceptedAppointmentScreen(),
+    ExpertProfileScreen(),
   ];
 
   @override
@@ -34,13 +38,17 @@ class _ExpertHomePageState extends State<ExpertHomePage> {
             label: 'Home',
           ),
 
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.chat),
+          //   label: 'Chat',
+          // ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Chat',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.event_available),
+            icon: Icon(Icons.list),
             label: 'Appointments',
+          ),
+           BottomNavigationBarItem(
+            icon: Icon(Icons.event_available),
+            label: 'Appointment List',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -60,12 +68,5 @@ class _ExpertHomePageState extends State<ExpertHomePage> {
 
 
 
-class ViewAppointmentScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('View Appointment'),
-    );
-  }
-}
+
 

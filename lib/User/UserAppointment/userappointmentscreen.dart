@@ -3,7 +3,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:vitamindeficiencydetection/EXPERT/signupexpert.dart';
-import 'package:vitamindeficiencydetection/User/UserAppointmet/controller/appointmentcontroller.dart';
+import 'package:vitamindeficiencydetection/User/UserAppointment/controller/appointmentcontroller.dart';
 import 'package:vitamindeficiencydetection/api/doctorsrepository.dart';
 import 'package:vitamindeficiencydetection/doctor.dart';
 import 'package:vitamindeficiencydetection/models/doctor_list_model.dart';
@@ -26,6 +26,7 @@ AppointmentController controller = Get.put(AppointmentController());
       appBar: AppBar(
         title: Text('Appointment Booking'),
         backgroundColor: Color.fromARGB(255, 142, 166, 82),
+        automaticallyImplyLeading : false,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,9 +116,18 @@ AppointmentController controller = Get.put(AppointmentController());
                     controller.getDoctorsDetail(data[index].email.toString());
                     Navigator.pushNamed(context, 'doctordetails');
                   },
-                  child: ListTile(
-                    title: Text(data[index].userName??''),
-                    subtitle: Text(data[index].qualification??''),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    side: BorderSide(
+                    color: Colors.grey,
+                    width: 1.0,
+                    ),
+                  ),
+                    child: ListTile(
+                      title: Text(data[index].userName??''),
+                      subtitle: Text(data[index].qualification??''),
+                    ),
                   ),
                 );
               },
@@ -125,30 +135,6 @@ AppointmentController controller = Get.put(AppointmentController());
             })
           ),
            SizedBox(height: 20,),
-            Padding(
-              padding: const EdgeInsets.only(left: 100),
-              child: ElevatedButton(onPressed: () {
-                Navigator.pushNamed(context, 'doctordetails');
-              }, 
-               
-               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 142, 166, 82),),
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30)
-                )),
-                fixedSize: MaterialStateProperty.all<Size>(Size(220,40))
-               ),
-              child: Row(children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 50),
-                  child: Text('Dr.Name',style: TextStyle(fontSize: 16),),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 35),
-                  child: Icon(Icons.arrow_forward_ios),
-                )
-              ],)),
-            )
           
         ],
       ),

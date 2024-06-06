@@ -15,7 +15,7 @@ class _DetectionState extends State<Detection> {
         appBar:  AppBar(
           title: const Text('NutriSense'),
           centerTitle: true,
-          backgroundColor: Colors.green,
+          backgroundColor: Color.fromARGB(255, 142, 166, 82),
          
           
          

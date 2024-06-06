@@ -1,49 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
 import 'package:intl/intl.dart';
+import 'package:vitamindeficiencydetection/User/UserAppointment/controller/appointmentcontroller.dart';
 
 class UserBookNow extends StatefulWidget {
-  const UserBookNow({super.key});
+
+ UserBookNow({super.key,required this.dr_name});
+  final String dr_name;
 
   @override
   State<UserBookNow> createState() => _UserBookNowState();
 }
 
 class _UserBookNowState extends State<UserBookNow> {
-  DateTime _dateTime = DateTime.now();
-  TimeOfDay _selectedTime = TimeOfDay.now();
-  final DateFormat _dateFormat = DateFormat('dd-MM-yyyy');
-  final DateFormat _timeFormat = DateFormat('h:mm');
-  void _showDatePicker() async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: _dateTime,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2050),
-    );
-    if (picked != null && picked != _dateTime) {
-      setState(() {
-        _dateTime = picked;
-      });
-    }
-  }
-  Future<void> _showTimePicker() async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: _selectedTime,
-    );
-    if (picked != null && picked != _selectedTime) {
-      setState(() {
-        _selectedTime = picked;
-      });
-    }
-  }
+  final controller = Get.put(AppointmentController());
+
+  
+  // DateTime _dateTime = DateTime.now();
+  // TimeOfDay _selectedTime = TimeOfDay.now();
+  // final DateFormat _dateFormat = DateFormat('dd-MM-yyyy');
+  // final DateFormat _timeFormat = DateFormat('h:mm');
+  // void _showDatePicker() async {
+  //   final DateTime? picked = await showDatePicker(
+  //     context: context,
+  //     initialDate: _dateTime,
+  //     firstDate: DateTime(2000),
+  //     lastDate: DateTime(2050),
+  //   );
+  //   if (picked != null && picked != _dateTime) {
+  //     setState(() {
+  //       _dateTime = picked;
+  //     });
+  //   }
+  // }
+  // Future<void> _showTimePicker() async {
+  //   final TimeOfDay? picked = await showTimePicker(
+  //     context: context,
+  //     initialTime: _selectedTime,
+  //   );
+  //   if (picked != null && picked != _selectedTime) {
+  //     setState(() {
+  //       _selectedTime = picked;
+  //     });
+  //   }
+  // }
   
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dr.Alice Joseph',),
+        title: Text(widget.dr_name,),
         backgroundColor: Color.fromARGB(255, 142, 166, 82),
         centerTitle: false,
       ),
@@ -52,7 +59,7 @@ class _UserBookNowState extends State<UserBookNow> {
         child: Column(
           children: [
             TextField(
-              onTap: _showDatePicker,
+              onTap: () => controller.selectDate(context),
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -68,14 +75,15 @@ class _UserBookNowState extends State<UserBookNow> {
                 
                 
               ),
-               controller: TextEditingController(
-                text: _dateFormat.format(_dateTime),
-              ),
+               controller: controller.dateController,
+              //  TextEditingController(
+              //   text: _dateFormat.format(_dateTime),
+              // ),
               readOnly: true,
             ),
             SizedBox(height: 20,),
              TextField(
-              onTap: _showTimePicker,
+              onTap: () => controller.selectTime(context),
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -89,13 +97,15 @@ class _UserBookNowState extends State<UserBookNow> {
                 ),
                 hintText: 'Select Time',
               ),
-             controller: TextEditingController(
-                text: _selectedTime.format(context),
-              ),
+             controller: controller.timeController,
+            //  TextEditingController(
+            //     text: _selectedTime.format(context),
+            //   ),
               readOnly: true,
             ),
              SizedBox(height: 20,),
              TextField(
+              controller: controller.patientNameController,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -112,6 +122,7 @@ class _UserBookNowState extends State<UserBookNow> {
             ),
              SizedBox(height: 20,),
              TextField(
+              controller: controller.placeController,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -128,6 +139,7 @@ class _UserBookNowState extends State<UserBookNow> {
             ),
              SizedBox(height: 20,),
              TextField(
+              controller: controller.contactNumberController,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -144,7 +156,8 @@ class _UserBookNowState extends State<UserBookNow> {
             ),
             SizedBox(height: 20,),
             ElevatedButton(onPressed: () {
-              Navigator.pushNamed(context, 'userviewappointment');
+              controller.makeAppointment();
+              // Navigator.pushNamed(context, 'userviewappointment');
             }, 
              
              style: ButtonStyle(

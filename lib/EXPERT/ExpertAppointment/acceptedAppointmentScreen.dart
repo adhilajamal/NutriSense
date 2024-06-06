@@ -4,8 +4,8 @@ import 'package:vitamindeficiencydetection/EXPERT/ExpertAppointment/controller/d
 import 'package:vitamindeficiencydetection/User/UserAppointment/controller/appointmentdetailscontroller.dart';
 import 'package:vitamindeficiencydetection/api/doctorsrepository.dart';
 
-class ViewAppointmentScreen extends GetView<DoctorAppointmentController> {
-  ViewAppointmentScreen({super.key});
+class AcceptedAppointmentScreen extends GetView<DoctorAppointmentController> {
+  AcceptedAppointmentScreen({super.key});
 
   final DoctorAppointmentController controller = Get.put(DoctorAppointmentController());
 
@@ -57,30 +57,7 @@ class ViewAppointmentScreen extends GetView<DoctorAppointmentController> {
                         style: TextStyle(color: Colors.grey.shade800),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black)),
-                          onPressed: () {
-                            // Handle accept action
-                            // controller.acceptAppointment(appointmentData[index].id);
-                          },
-                          child: Text('Accept'),
-                        ),
-                        SizedBox(width: 25),
-                        ElevatedButton(
-                          onPressed: () {
-                            // Handle reject action
-                            // controller.rejectAppointment(appointmentData[index].id);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.grey,
-                          ),
-                          child: Text('Reject'),
-                        ),
-                      ],
-                    ),
+                   
                     SizedBox(height: 15),
                   ],
                 ),

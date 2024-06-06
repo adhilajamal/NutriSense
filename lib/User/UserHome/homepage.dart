@@ -4,7 +4,7 @@ import 'package:vitamindeficiencydetection/User/UserHome/homescreen.dart';
 import 'package:vitamindeficiencydetection/User/UserProfile/userprofilescreen.dart';
 import 'package:vitamindeficiencydetection/User/UserReminder/reminderscreen.dart';
 import 'package:vitamindeficiencydetection/User/UserFoodSuggestion/foodsuggestionscreen.dart';
-import 'package:vitamindeficiencydetection/User/UserAppointmet/userappointmentscreen.dart';
+import 'package:vitamindeficiencydetection/User/UserAppointment/userappointmentscreen.dart';
 import 'package:vitamindeficiencydetection/models/patient_profile_model.dart';
 
 
@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   late String email;
   final List<Widget> _children = [
     HomeScreen(),
-    ReminderScreen(),
+    // ReminderScreen(),
     FoodSuggestionScreen(),
     UserAppointmentScreen(),
     ProfileScreen(),
@@ -41,16 +41,16 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.medication),
-            label: 'Pill Reminder',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.medication),
+          //   label: 'Pill Reminder',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.food_bank),
             label: 'Food Suggestion',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.event_available),
+            icon: Icon(Icons.event_note),
             label: 'Appointment',
           ),
           BottomNavigationBarItem(

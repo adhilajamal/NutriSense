@@ -74,7 +74,12 @@ class _SignUpExpertState extends State<SignUpExpert> {
         qualification,
         proof
       );
-
+      if (response['status'] == 501) {
+         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Email already exist"),
+       ),
+    );
+      }
       if (response['status'] == 200) {
         showDialog(
           context: context,
@@ -522,6 +527,15 @@ class _SignUpExpertState extends State<SignUpExpert> {
                       expertregistration(context);
                     }
                   },
+                   style: ButtonStyle(
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      backgroundColor: MaterialStateProperty.all(Colors.green),
+                      foregroundColor: MaterialStateProperty.all(Colors.white),
+                    ),
                   child: Text('Sign Up'),
                 ),
               ],

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vitamindeficiencydetection/User/UserAppointmet/controller/appointmentcontroller.dart';
+import 'package:vitamindeficiencydetection/User/UserAppointment/controller/appointmentcontroller.dart';
+import 'package:vitamindeficiencydetection/User/UserAppointment/userbooknow.dart';
 
 
 class DoctorDetails extends StatelessWidget {
    DoctorDetails({super.key});
-
+  
   AppointmentController controller = Get.put(AppointmentController());
 
   @override
@@ -150,7 +151,7 @@ class DoctorDetails extends StatelessWidget {
             ),),
             SizedBox(height: 20,),
             ElevatedButton(onPressed: () {
-              Navigator.pushNamed(context, 'userbooknow');
+              Navigator.push(context,MaterialPageRoute(builder: (context) => UserBookNow(dr_name:doctordata?.userName?.toString()??'' ) ));
             }, 
              
              style: ButtonStyle(

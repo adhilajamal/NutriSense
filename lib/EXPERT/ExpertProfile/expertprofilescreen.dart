@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/instance_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vitamindeficiencydetection/EXPERT/ExpertProfile/controller/doctorProfileController.dart';
 
 
-class ExpertProfileScreen extends StatefulWidget {
+class ExpertProfileScreen extends GetView<DoctorProfileController> {
   const ExpertProfileScreen({super.key});
 
-  @override
-  State<ExpertProfileScreen> createState() => _ExpertProfileScreenState();
-}
-
-class _ExpertProfileScreenState extends State<ExpertProfileScreen> {
+ 
   @override
   Widget build(BuildContext context) {
+      final DoctorProfileController controller = Get.put(DoctorProfileController());
+
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('Profile'),
         centerTitle: true,
         backgroundColor:  Color.fromARGB(255, 142, 166, 82),
@@ -46,11 +49,14 @@ class _ExpertProfileScreenState extends State<ExpertProfileScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('alicejoseph@gmail.com',
+              child: Obx(() {
+                return Text(controller.doctordetails.value?.email??'',
               style: TextStyle(
                 color:Color.fromARGB(255, 142, 166, 82),
                 fontSize: 15
-              ),),
+              ),
+              );
+              })
             ),
            Padding(
              padding: const EdgeInsets.only(top: 30),
@@ -68,7 +74,7 @@ class _ExpertProfileScreenState extends State<ExpertProfileScreen> {
            ),
            ListTile(
             onTap: () {
-              Navigator.pushNamed(context ,'userchangepassword');
+              Navigator.pushNamed(context ,'expertchangepassword');
             },
             title: Text('Change Password',
               style: TextStyle(
@@ -113,7 +119,11 @@ class _ExpertProfileScreenState extends State<ExpertProfileScreen> {
                 ),
                 fixedSize: MaterialStateProperty.all<Size>(Size(110,40))
               ),
-              onPressed: () {
+              onPressed: () async{
+                final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+                    final SharedPreferences prefs = await _prefs;
+                    prefs.setString('email', '');
+                    prefs.clear();
                 Navigator.pushNamed(context, 'login');
               }, 
               child: Text('Logout',
