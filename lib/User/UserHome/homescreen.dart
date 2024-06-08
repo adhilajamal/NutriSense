@@ -4,9 +4,14 @@ import 'dart:io';
 
 // ImageUpload widget
 class ImageUpload extends StatelessWidget {
-  final VoidCallback onPickImage;
+  final VoidCallback onPickImageFromGallery;
+  final VoidCallback onCaptureImageWithCamera;
 
-  const ImageUpload({super.key, required this.onPickImage});
+  const ImageUpload({
+    super.key,
+    required this.onPickImageFromGallery,
+    required this.onCaptureImageWithCamera,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +50,7 @@ class ImageUpload extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: GestureDetector(
-                        onTap: onPickImage,
+                        onTap: onPickImageFromGallery,
                         child: CircleAvatar(
                           radius: 70,
                           backgroundColor: Colors.green[200],
@@ -59,7 +64,7 @@ class ImageUpload extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: GestureDetector(
-                        onTap: onPickImage,
+                        onTap: onCaptureImageWithCamera,
                         child: CircleAvatar(
                           radius: 70,
                           backgroundColor: Colors.green[200],
@@ -111,9 +116,20 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   File? _image;
 
-  Future<void> _pickImage() async {
+  Future<void> _pickImageFromGallery() async {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        _image = File(image.path);
+      });
+    }
+  }
+
+  Future<void> _captureImageWithCamera() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.camera);
 
     if (image != null) {
       setState(() {
@@ -129,10 +145,16 @@ class _HomeScreenState extends State<HomeScreen> {
         borderRadius: BorderRadius.circular(15),
       ),
       builder: (BuildContext context) {
-        return ImageUpload(onPickImage: () {
-          Navigator.pop(context); // Close the bottom sheet
-          _pickImage(); // Pick image from gallery
-        });
+        return ImageUpload(
+          onPickImageFromGallery: () {
+            Navigator.pop(context); // Close the bottom sheet
+            _pickImageFromGallery(); // Pick image from gallery
+          },
+          onCaptureImageWithCamera: () {
+            Navigator.pop(context); // Close the bottom sheet
+            _captureImageWithCamera(); // Capture image with camera
+          },
+        );
       },
     );
   }
