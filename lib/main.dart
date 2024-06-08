@@ -4,6 +4,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:vitamindeficiencydetection/EXPERT/ExpertProfile/expertprofilescreen.dart';
 import 'package:vitamindeficiencydetection/User/UserAppointment/doctordetails.dart';
 import 'package:vitamindeficiencydetection/User/UserAppointment/userviewappointment.dart';
+import 'package:vitamindeficiencydetection/User/UserFoodSuggestion/DiseaseAndCause.dart';
 // ignore: unused_import
 import 'package:vitamindeficiencydetection/User/UserFoodSuggestion/foodsuggestionscreen.dart';
 import 'package:vitamindeficiencydetection/User/UserHome/homepage.dart';
@@ -69,6 +70,7 @@ void main() {
       'expertsettings'          :(context) => ExpertSettings(),
       'userviewappointment'     :(context) => UserViewAppointment(),
       'userabout'               :(context) => UserProfile(),
+      'DiseaseAndCause'         :(context) => DiseaseCause(),
        
       
 
