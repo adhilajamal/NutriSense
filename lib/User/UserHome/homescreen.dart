@@ -2,6 +2,105 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
+// ImageUpload widget
+class ImageUpload extends StatelessWidget {
+  final VoidCallback onPickImage;
+
+  const ImageUpload({super.key, required this.onPickImage});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Center(
+        child: Container(
+          width: 350,
+          height: 350,
+          padding: EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white.withOpacity(0.9),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(2),
+                  child: Text(
+                    'Upload Image',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.green.shade300,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: GestureDetector(
+                        onTap: onPickImage,
+                        child: CircleAvatar(
+                          radius: 70,
+                          backgroundColor: Colors.green[200],
+                          child: CircleAvatar(
+                            radius: 69,
+                            backgroundImage: AssetImage('assets/photo.jpg'),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: GestureDetector(
+                        onTap: onPickImage,
+                        child: CircleAvatar(
+                          radius: 70,
+                          backgroundColor: Colors.green[200],
+                          child: CircleAvatar(
+                            radius: 69,
+                            backgroundImage: AssetImage('assets/camera.jpg'),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 70),
+                      child: Text(
+                        'Choose Photo',
+                        style: TextStyle(color: Colors.green),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: Text(
+                        "Take photo",
+                        style: TextStyle(color: Colors.green),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// HomeScreen class
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -21,6 +120,21 @@ class _HomeScreenState extends State<HomeScreen> {
         _image = File(image.path);
       });
     }
+  }
+
+  void showImageUploadBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      builder: (BuildContext context) {
+        return ImageUpload(onPickImage: () {
+          Navigator.pop(context); // Close the bottom sheet
+          _pickImage(); // Pick image from gallery
+        });
+      },
+    );
   }
 
   @override
@@ -107,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: GestureDetector(
-                        onTap: _pickImage,
+                        onTap: () => showImageUploadBottomSheet(context),
                         child: Container(
                           width: 400,
                           height: 150,
