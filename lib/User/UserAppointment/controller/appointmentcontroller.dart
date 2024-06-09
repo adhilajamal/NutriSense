@@ -36,6 +36,7 @@ class AppointmentController extends GetxController{
   }
   Future <void> makeAppointment()async{
   var profiledata = controller.patientdetails.value;
+  
     final repo = await DoctorRepository().makeAppointment(
       dr_email: doctordetails.value?.email??'',
       dr_name: doctordetails.value?.userName??'', 
