@@ -13,18 +13,17 @@ class _SignUpUserState extends State<SignUpUser> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController user_nameController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
-  final TextEditingController genderController = TextEditingController();
   final TextEditingController contactController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmpasswordController = TextEditingController();
-  
+  String? selectedGender;
 
   void registration(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       final String user_name = user_nameController.text;
       final String age = ageController.text;
-      final String gender = genderController.text;
+      final String gender = selectedGender ?? '';
       final String contact = contactController.text;
       final String email = emailController.text;
       final String password = passwordController.text;
@@ -172,10 +171,10 @@ class _SignUpUserState extends State<SignUpUser> {
                 ),
                 Padding(
                   padding: EdgeInsets.all(10.0),
-                  child: TextFormField(
+                  child: DropdownButtonFormField<String>(
                     decoration: InputDecoration(
                       labelText: 'Gender',
-                      hintText: 'Enter your gender',
+                      hintText: 'Select your gender',
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
@@ -189,10 +188,21 @@ class _SignUpUserState extends State<SignUpUser> {
                         ),
                       ),
                     ),
-                    controller: genderController,
+                    value: selectedGender,
+                    items: ['Male', 'Female', 'Other'].map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        selectedGender = newValue;
+                      });
+                    },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your gender';
+                        return 'Please select your gender';
                       }
                       return null;
                     },

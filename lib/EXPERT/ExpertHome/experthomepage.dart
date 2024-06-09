@@ -43,7 +43,7 @@ class _ExpertHomePageState extends State<ExpertHomePage> {
           //   label: 'Chat',
           // ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.list),
+            icon: Icon(Icons.event_note),
             label: 'Appointments',
           ),
            BottomNavigationBarItem(

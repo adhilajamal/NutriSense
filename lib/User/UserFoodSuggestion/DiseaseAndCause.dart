@@ -29,6 +29,7 @@ class DiseaseCause extends StatelessWidget {
         appBar: AppBar(
           title: Text('Food Suggestions'),
           backgroundColor: Color.fromARGB(255, 142, 166, 82),
+          automaticallyImplyLeading: true,
         ),
         body: SingleChildScrollView(
           child: Column(

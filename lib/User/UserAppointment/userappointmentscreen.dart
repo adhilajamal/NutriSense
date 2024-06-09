@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
@@ -43,6 +45,10 @@ AppointmentController controller = Get.put(AppointmentController());
             child: Padding(
               padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
               child: TextField(
+                controller: controller.nameSearch,
+                onChanged: (String value){
+                   controller.getDoctors();
+                },
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -84,21 +90,11 @@ AppointmentController controller = Get.put(AppointmentController());
                         ),
                       ];
                     },
-                    // onSelected: (String value) {
-                    //   setState(() {
-                    //     _selectedLocation = value;
-                    //     _isSearchClicked = true;
-                    //   });
-                    // },
-                    icon: Icon(Icons.location_on, color: Colors.white),
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      // setState(() {
-                      //   _isSearchClicked = true;
-                      // });
+                    onSelected: (String value) {
+                      controller.districtSearch.text = value.toString();
+
                     },
-                    icon: Icon(Icons.search, color: Colors.white),
+                    icon: Icon(Icons.location_on, color: Colors.white),
                   ),
                 ),
               ),
@@ -192,6 +188,6 @@ AppointmentController controller = Get.put(AppointmentController());
 }
 
 doctorlist()async{
-  var doctor =await DoctorRepository().getdoctorslist();
+  var doctor =await DoctorRepository().getdoctorslist('','');
   return doctor?.doctors??[];
 }

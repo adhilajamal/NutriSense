@@ -18,6 +18,8 @@ class AppointmentController extends GetxController{
   TextEditingController dateController = TextEditingController(); 
   TextEditingController timeController = TextEditingController(); 
   TextEditingController contactNumberController = TextEditingController(); 
+  TextEditingController districtSearch = TextEditingController(); 
+  TextEditingController nameSearch = TextEditingController(); 
   @override
   void onInit() {
     // TODO: implement onInit
@@ -25,9 +27,8 @@ class AppointmentController extends GetxController{
     getDoctors();
   }
   Future <void> getDoctors()async{
-    final repo = await DoctorRepository().getdoctorslist();
+    final repo = await DoctorRepository().getdoctorslist(districtSearch.text.toString(), nameSearch.text.toString());
     doctors.value = repo?.doctors??[];
-        
   }
   Future <void> getDoctorsDetail(String email)async{
     final repo = await DoctorRepository().getdoctordetails(email);

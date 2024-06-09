@@ -13,30 +13,31 @@ class _SignUpExpertState extends State<SignUpExpert> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController user_nameController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
-  final TextEditingController genderController = TextEditingController();
   final TextEditingController contactController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmpasswordController = TextEditingController();
   final TextEditingController aboutControler = TextEditingController();
   final TextEditingController addressControler = TextEditingController();
-  final TextEditingController districtControler = TextEditingController();
   final TextEditingController workingtimeControler = TextEditingController();
   final TextEditingController qualificationControler = TextEditingController();
   final TextEditingController proofControler = TextEditingController();
+
+  String? selectedGender;
+  String? selectedDistrict;
 
   void expertregistration(BuildContext context) async {
     if (_formKey.currentState?.validate() ?? false) {
       final String user_name = user_nameController.text;
       final String age = ageController.text;
-      final String gender = genderController.text;
+      final String gender = selectedGender ?? '';
       final String contact = contactController.text;
       final String email = emailController.text;
       final String password = passwordController.text;
       final String confirmpassword = confirmpasswordController.text;
       final String about = aboutControler.text;
       final String address = addressControler.text;
-      final String district = districtControler.text;
+      final String district = selectedDistrict ?? '';
       final String workingtime = workingtimeControler.text;
       final String qualification = qualificationControler.text;
       final String proof = proofControler.text;
@@ -76,7 +77,7 @@ class _SignUpExpertState extends State<SignUpExpert> {
       );
       if (response['status'] == 501) {
          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Email already exist"),
+          content: Text("Email already exists"),
        ),
     );
       }
@@ -209,10 +210,10 @@ class _SignUpExpertState extends State<SignUpExpert> {
                 ),
                 Padding(
                   padding: EdgeInsets.all(10.0),
-                  child: TextFormField(
+                  child: DropdownButtonFormField<String>(
                     decoration: InputDecoration(
                       labelText: 'District',
-                      hintText: 'Enter your district',
+                      hintText: 'Select your district',
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
@@ -226,10 +227,26 @@ class _SignUpExpertState extends State<SignUpExpert> {
                         ),
                       ),
                     ),
-                    controller: districtControler,
+                    value: selectedDistrict,
+                    items: [
+                      'Alappuzha', 'Ernakulam', 'Idukki', 'Kannur', 'Kasaragod',
+                      'Kollam', 'Kottayam', 'Kozhikode', 'Malappuram',
+                      'Palakkad', 'Pathanamthitta', 'Thiruvananthapuram',
+                      'Thrissur', 'Wayanad'
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        selectedDistrict = newValue;
+                      });
+                    },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter the district';
+                        return 'Please select your district';
                       }
                       return null;
                     },
@@ -265,10 +282,10 @@ class _SignUpExpertState extends State<SignUpExpert> {
                 ),
                 Padding(
                   padding: EdgeInsets.all(10.0),
-                  child: TextFormField(
+                  child: DropdownButtonFormField<String>(
                     decoration: InputDecoration(
                       labelText: 'Gender',
-                      hintText: 'Enter your gender',
+                      hintText: 'Select your gender',
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
@@ -282,10 +299,22 @@ class _SignUpExpertState extends State<SignUpExpert> {
                         ),
                       ),
                     ),
-                    controller: genderController,
+                    value: selectedGender,
+                    items: ['Male', 'Female', 'Other']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        selectedGender = newValue;
+                      });
+                    },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter the gender';
+                        return 'Please select your gender';
                       }
                       return null;
                     },
@@ -527,15 +556,15 @@ class _SignUpExpertState extends State<SignUpExpert> {
                       expertregistration(context);
                     }
                   },
-                   style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      backgroundColor: MaterialStateProperty.all(Colors.green),
-                      foregroundColor: MaterialStateProperty.all(Colors.white),
                     ),
+                    backgroundColor: MaterialStateProperty.all(Colors.green),
+                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                  ),
                   child: Text('Sign Up'),
                 ),
               ],

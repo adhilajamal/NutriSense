@@ -17,10 +17,11 @@ import '../models/doctor_details_model.dart';
 
 
 class DoctorRepository{
+  //  final String baseUrl = 'http://172.20.10.4:8000';
 //  final AppointmentController appointmentController = Get.put(AppointmentController());
-  Future<DoctorListModel>getdoctorslist() async{
+  Future<DoctorListModel>getdoctorslist(String district, String name) async{
    
-    final response = await http.get(Uri.parse('http://127.0.0.1:8000/get_all_doctors'), headers: {'Content-Type' : 'application/json'});
+    final response = await http.get(Uri.parse('http://127.0.0.1:8000/get_all_doctors?name=$name&district=$district'), headers: {'Content-Type' : 'application/json'});
   if(response.statusCode==200 || response.statusCode==201){
     log(response.body);
     return DoctorListModel.fromJson(json.decode(response.body));

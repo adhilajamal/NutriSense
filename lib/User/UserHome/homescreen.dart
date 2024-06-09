@@ -231,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         bottom: 20,
                       ),
                       child: Text(
-                        'Check Deficiency',
+                        '    Check Deficiency',
                         style: TextStyle(
                           fontSize: 19,
                           fontWeight: FontWeight.bold,
@@ -249,12 +249,24 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 150,
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
+                            
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.grey.shade500.withOpacity(0.9),
                           ),
+                          
                           child: _image != null
                               ? Image.file(_image!, fit: BoxFit.cover)
-                              : Container(),
+                              : Stack(
+          children: [
+            Center(
+              child: Icon(
+                Icons.upload_file,
+                color: Colors.white.withOpacity(0.5),
+                size: 50,
+              ),
+            ),
+          ],
+        ),
                         ),
                       ),
                     ),
