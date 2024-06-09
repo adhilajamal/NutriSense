@@ -65,6 +65,10 @@ AppointmentController controller = Get.put(AppointmentController());
                     itemBuilder: (BuildContext context) {
                       return <PopupMenuEntry<String>>[
                         PopupMenuItem<String>(
+                          value: "None",
+                          child: Text('Deselect'),
+                        ),
+                        PopupMenuItem<String>(
                           value: 'Calicut',
                           child: Text('Calicut'),
                         ),
@@ -92,7 +96,7 @@ AppointmentController controller = Get.put(AppointmentController());
                     },
                     onSelected: (String value) {
                       controller.districtSearch.text = value.toString();
-
+                      controller.getDoctors();
                     },
                     icon: Icon(Icons.location_on, color: Colors.white),
                   ),
